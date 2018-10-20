@@ -30,5 +30,5 @@ $ bundle exec knife zero converge "name:*"
 ## Run chef-client to node (Single mode)
 Run specified recipe for a single run.
 ```bash
-$ bundle exec knife zero converge "name:<nodename>" -o recipe[base::package]
+$ bundle exec knife zero converge "name:<nodename>" -o recipe[base::packages]
 ```
