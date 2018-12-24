@@ -1,4 +1,5 @@
 #! /usr/bin/env ruby
+
 require 'aws-sdk'
 
 client = Aws::S3::Client.new(
