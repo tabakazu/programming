@@ -1,1 +1,4 @@
 /chef/.chef/knife.rb
+vendor/
+pkg/
+.envrc
