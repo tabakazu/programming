@@ -56,7 +56,7 @@ end
 bash "install bundler" do
   code <<-EOS
     source /etc/profile.d/rbenv.sh;
-    gem install bundler
+    gem install bundler -v '< 2.0.0'
   EOS
   not_if <<-EOS
     source /etc/profile.d/rbenv.sh;
