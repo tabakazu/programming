@@ -1,4 +1,9 @@
+# chef
 /chef/.chef/knife.rb
+/chef/clients/
+/chef/nodes/
+/chef/Gemfile.lock
+
 vendor/
 pkg/
 .envrc
