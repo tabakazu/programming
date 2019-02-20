@@ -16,6 +16,12 @@ Check node list.
 $ bundle exec knife node list
 ```
 
+## Query command
+Check hostname.
+```bash
+$ bundle exec knife ssh "name:<nodename>" hostname
+```
+
 ## Run chef-client to node
 Run chef-client to node. (why-run mode)
 ```bash
@@ -28,6 +34,11 @@ $ bundle exec knife zero converge "name:*"
 ```
 
 ## Run chef-client to node (Single mode)
+Run specified recipe for a single run. (why-run mode)
+```bash
+$ bundle exec knife zero converge "name:<nodename>" -o recipe[base::packages] --why-run
+```
+
 Run specified recipe for a single run.
 ```bash
 $ bundle exec knife zero converge "name:<nodename>" -o recipe[base::packages]
