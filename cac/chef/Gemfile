@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+
+gem "chef", ">= 13.0.0", "< 14.0.0"
+gem "chef-config", ">= 13.0.0", "< 14.0.0"
+gem "chef-zero", ">= 13.0.0", "< 14.0.0"
+gem "knife-zero"
+gem "berkshelf"
+gem "kitchen"
