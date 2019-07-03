@@ -13,4 +13,6 @@ puts arr.class, arr
 hash = { a: 1, b: 2 }
 puts hash.class, hash
 
-Struct.new(:foo, :bar).new('Foo', 'Bar')
+str = Struct.new(:foo, :bar).new('Foo', 'Bar')
+puts str.foo
+puts str.bar
