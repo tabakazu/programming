@@ -1,18 +1,30 @@
+# Integer クラス
 i = 1
 puts i.class, i
 
+# Float クラス
 f = 0.1
 puts f.class, f
 
-s = 'Hello'
-puts s.class, s
+# String クラス
+str = 'Hello'
+puts str.class, str
 
+# Array クラス
 arr = [1, 2, 3]
 puts arr.class, arr
 
+# Hash クラス
 hash = { a: 1, b: 2 }
 puts hash.class, hash
 
-str = Struct.new(:foo, :bar).new('Foo', 'Bar')
-puts str.foo
-puts str.bar
+# 構造体クラス
+## クラス名あり ※ 第一引数がクラス名、keyword_init が true でキーワード引数有効
+person_struct = Struct.new('Person', :name, :age, keyword_init: true)
+person1 = person_struct.new(name: 'taro', age: 20)
+puts person1.class, person1.name, person1.age
+
+## クラス名なし ※ 定数に入れることで利用可能
+Person = Struct.new(:name, :age)
+person2 = Person.new('hanako', 40)
+puts person2.class, person2.name, person2.age
