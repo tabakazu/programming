@@ -36,3 +36,35 @@ require 'ostruct'
 o_struct = OpenStruct.new({ name: 'pochi' })
 o_struct.age = 10 # 初期値にない要素を追加可能
 puts o_struct.class, o_struct.name, o_struct.age
+
+
+# ブロック
+## Proc クラス
+proc = Proc.new { | w | puts w }
+puts proc.class, proc.call('This is Proc class')
+
+def proc_call_method word, proc
+  proc.call word
+  proc.call # ブロックの引数が足りなくても大丈夫
+end
+proc_call_method 'Using proc call method', Proc.new { | w | puts w }
+
+## lambda メソッド例
+def lambda_call_method word, _lambda
+  _lambda.call word # ブロックの引数が足りないとエラー
+end
+lambda_call_method 'Using lambda method', lambda { | w | puts w }
+
+## yield 例
+def yield_method word
+  yield word
+end
+yield_method('Using yield method') { | w | puts w }
+
+## block 引数例
+def block_call_method word, &block
+  block.call word
+end
+block_call_method 'Using block call method' do | w | 
+  puts w 
+end
