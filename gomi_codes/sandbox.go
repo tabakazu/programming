@@ -18,6 +18,24 @@ func (p *People) changeNamePointer(name string) {
 	p.Name = name
 }
 
+func (p People) getName() {
+	fmt.Println(p.Name)
+}
+
+type Dog struct{ Name string }
+
+func (d Dog) getName() {
+	fmt.Println(d.Name)
+}
+
+type Animal interface {
+	getName()
+}
+
+func greeting(a Animal) {
+	a.getName()
+}
+
 func main() {
 	i := 1 // int
 	fmt.Printf("%T - %v\n", i, i)
@@ -62,4 +80,10 @@ func main() {
 	for i, people := range peoples { // slice のループ
 		fmt.Println(i, people)
 	}
+
+	// ポリモーフィズム
+	taro := People{Name: "Taro"}
+	pochi := Dog{Name: "Pochi"}
+	greeting(taro)
+	greeting(pochi)
 }
