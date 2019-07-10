@@ -17,19 +17,18 @@ type Post struct {
 func CreateDb() error {
 	db, err := sql.Open("mysql", "root:@/")
 	defer db.Close()
-
 	if err != nil {
 		return err
 	}
+
 	_, err = db.Exec("CREATE DATABASE IF NOT EXISTS gormdemo_development")
 	if err != nil {
 		return err
 	}
-
 	return nil
 }
 
-func MigrateSchema(db *gorm.DB) error {
+func MigrateDbSchema(db *gorm.DB) error {
 	if err := db.AutoMigrate(&Post{}).Error; err != nil {
 		return err
 	}
@@ -70,7 +69,7 @@ func main() {
 	}
 	defer db.Close()
 
-	if err := MigrateSchema(db); err != nil {
+	if err := MigrateDbSchema(db); err != nil {
 		panic(err.Error())
 	}
 
