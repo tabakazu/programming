@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -54,6 +55,14 @@ func (r PostRepo) CreatePost(post Post, db *gorm.DB) error {
 	return nil
 }
 
+func (r PostRepo) Count(db *gorm.DB) (int, error) {
+	var count int
+	if err := db.Table("posts").Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
 func main() {
 	db, err := gorm.Open("mysql", "root:@/gormdemo_development?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
@@ -70,4 +79,10 @@ func main() {
 	if err := repo.CreatePost(post, db); err != nil {
 		panic(err.Error())
 	}
+
+	count, err := repo.Count(db)
+	if err != nil {
+		panic(err.Error())
+	}
+	log.Printf("- Post count: %v", count)
 }
