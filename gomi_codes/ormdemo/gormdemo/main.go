@@ -14,6 +14,13 @@ type Post struct {
 	Content string `gorm:"not null" form:"content" json:"content" sql:"type:text;"`
 }
 
+type Comment struct {
+	gorm.Model
+	PostID  uint   `gorm:"not null" form:"post_id" json:"post_id"`
+	Content string `gorm:"not null" form:"content" json:"content"`
+	Post    Post   `gorm:"association_foreignkey:Model.ID"`
+}
+
 func CreateDb() error {
 	db, err := sql.Open("mysql", "root:@/")
 	defer db.Close()
@@ -32,6 +39,9 @@ func MigrateDbSchema(db *gorm.DB) error {
 	if err := db.AutoMigrate(&Post{}).Error; err != nil {
 		return err
 	}
+	if err := db.AutoMigrate(&Comment{}).Error; err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -42,13 +52,25 @@ func init() {
 }
 
 type PostRepo struct{}
+type CommentRepo struct{}
 
-func newPostRepo() *PostRepo {
+func NewPostRepo() *PostRepo {
 	return new(PostRepo)
 }
 
-func (r PostRepo) CreatePost(post Post, db *gorm.DB) error {
+func NewCommentRepo() *CommentRepo {
+	return new(CommentRepo)
+}
+
+func (r PostRepo) Create(post Post, db *gorm.DB) error {
 	if err := db.Create(&post).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r CommentRepo) Create(comment Comment, db *gorm.DB) error {
+	if err := db.Create(&comment).Error; err != nil {
 		return err
 	}
 	return nil
@@ -57,6 +79,14 @@ func (r PostRepo) CreatePost(post Post, db *gorm.DB) error {
 func (r PostRepo) Count(db *gorm.DB) (int, error) {
 	var count int
 	if err := db.Table("posts").Count(&count).Error; err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
+func (r CommentRepo) Count(db *gorm.DB) (int, error) {
+	var count int
+	if err := db.Table("comments").Count(&count).Error; err != nil {
 		return 0, err
 	}
 	return count, nil
@@ -73,15 +103,25 @@ func main() {
 		panic(err.Error())
 	}
 
-	repo := newPostRepo()
-	post := Post{Title: "Post 1", Content: "Body 1"}
-	if err := repo.CreatePost(post, db); err != nil {
+	postRepo := NewPostRepo()
+	newPost := Post{Title: "Post 1", Content: "Body 1"}
+	if err := postRepo.Create(newPost, db); err != nil {
 		panic(err.Error())
 	}
-
-	count, err := repo.Count(db)
+	postCount, err := postRepo.Count(db)
 	if err != nil {
 		panic(err.Error())
 	}
-	log.Printf("- Post count: %v", count)
+	log.Printf("- Post count: %v", postCount)
+
+	commentRepo := NewCommentRepo()
+	newComment := Comment{PostID: newPost.Model.ID, Content: "Comment 1"}
+	if err := commentRepo.Create(newComment, db); err != nil {
+		panic(err.Error())
+	}
+	commentCount, err := commentRepo.Count(db)
+	if err != nil {
+		panic(err.Error())
+	}
+	log.Printf("- Comment count: %v", commentCount)
 }
