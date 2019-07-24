@@ -4,12 +4,12 @@ import (
 	"fmt"
 
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/tabakazu/interface-pattern/interfaces/http"
+	"github.com/tabakazu/interface-pattern/interfaces"
 )
 
 func main() {
 	fmt.Println("Hello Interface Pattern")
 
-	r := http.NewRouter()
+	r := interfaces.NewRouter()
 	r.Run(":8080")
 }

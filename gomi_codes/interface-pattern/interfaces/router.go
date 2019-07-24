@@ -1,9 +1,9 @@
-package http
+package interfaces
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/tabakazu/interface-pattern/infrastructure"
-	"github.com/tabakazu/interface-pattern/interfaces/http/handler"
+	"github.com/tabakazu/interface-pattern/interfaces/handler"
 )
 
 func NewRouter() *gin.Engine {
