@@ -37,3 +37,14 @@ func (r *PostRepository) Store(post domain.Post) (domain.Post, error) {
 	}
 	return post, nil
 }
+
+func (r *PostRepository) Update(id int, postParam domain.Post) (domain.Post, error) {
+	post := domain.Post{}
+	if err := r.DB.Conn.First(&post, id).Error; err != nil {
+		return post, err
+	}
+	if err := r.DB.Conn.Model(&post).Updates(postParam).Error; err != nil {
+		return post, err
+	}
+	return post, nil
+}

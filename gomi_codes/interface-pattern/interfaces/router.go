@@ -13,6 +13,7 @@ func NewRouter() *gin.Engine {
 	r.GET("/posts", func(c *gin.Context) { postHandler.Index(c) })
 	r.GET("/posts/:id", func(c *gin.Context) { postHandler.Show(c) })
 	r.POST("/posts", func(c *gin.Context) { postHandler.Create(c) })
+	r.PUT("/posts/:id", func(c *gin.Context) { postHandler.Update(c) })
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
