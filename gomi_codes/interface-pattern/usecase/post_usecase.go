@@ -12,6 +12,7 @@ type PostUsecase struct {
 type PostRepository interface {
 	All() ([]domain.Post, error)
 	FindById(int) (domain.Post, error)
+	Store(domain.Post) (domain.Post, error)
 }
 
 func NewPostUsecase() PostUsecase {
@@ -30,6 +31,14 @@ func (u PostUsecase) GetPosts() ([]domain.Post, error) {
 
 func (u PostUsecase) GetPost(id int) (domain.Post, error) {
 	post, err := u.PostRepository.FindById(id)
+	if err != nil {
+		return post, err
+	}
+	return post, nil
+}
+
+func (u PostUsecase) CreatePost(post domain.Post) (domain.Post, error) {
+	post, err := u.PostRepository.Store(post)
 	if err != nil {
 		return post, err
 	}

@@ -16,6 +16,7 @@ type PostHandler struct {
 type PostUsecase interface {
 	GetPosts() ([]domain.Post, error)
 	GetPost(int) (domain.Post, error)
+	CreatePost(domain.Post) (domain.Post, error)
 }
 
 func NewPostHandler(db infrastructure.DB) *PostHandler {
@@ -40,5 +41,16 @@ func (h *PostHandler) Show(c *gin.Context) {
 		c.JSON(404, gin.H{"message": "Page not found"})
 	} else {
 		c.JSON(200, post)
+	}
+}
+
+func (h *PostHandler) Create(c *gin.Context) {
+	post := domain.Post{}
+	c.BindJSON(&post)
+	post, err := h.Usecase.CreatePost(post)
+	if err != nil {
+		c.JSON(404, gin.H{"message": "Page not found"})
+	} else {
+		c.JSON(201, post)
 	}
 }

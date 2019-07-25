@@ -30,3 +30,10 @@ func (r *PostRepository) FindById(id int) (domain.Post, error) {
 	}
 	return post, nil
 }
+
+func (r *PostRepository) Store(post domain.Post) (domain.Post, error) {
+	if err := r.DB.Conn.Create(&post).Error; err != nil {
+		return post, err
+	}
+	return post, nil
+}
