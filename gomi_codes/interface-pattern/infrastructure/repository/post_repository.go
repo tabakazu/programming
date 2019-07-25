@@ -48,3 +48,14 @@ func (r *PostRepository) Update(id int, postParam domain.Post) (domain.Post, err
 	}
 	return post, nil
 }
+
+func (r *PostRepository) Destroy(id int) error {
+	post := domain.Post{}
+	if err := r.DB.Conn.First(&post, id).Error; err != nil {
+		return err
+	}
+	if err := r.DB.Conn.Delete(&post).Error; err != nil {
+		return err
+	}
+	return nil
+}

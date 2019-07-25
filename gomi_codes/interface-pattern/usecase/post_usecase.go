@@ -14,6 +14,7 @@ type PostRepository interface {
 	FindById(int) (domain.Post, error)
 	Store(domain.Post) (domain.Post, error)
 	Update(int, domain.Post) (domain.Post, error)
+	Destroy(int) error
 }
 
 func NewPostUsecase() PostUsecase {
@@ -52,4 +53,11 @@ func (u PostUsecase) UpdatePost(id int, postParam domain.Post) (domain.Post, err
 		return post, err
 	}
 	return post, nil
+}
+
+func (u PostUsecase) DestroyPost(id int) error {
+	if err := u.PostRepository.Destroy(id); err != nil {
+		return err
+	}
+	return nil
 }

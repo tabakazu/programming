@@ -18,6 +18,7 @@ type PostUsecase interface {
 	GetPost(int) (domain.Post, error)
 	CreatePost(domain.Post) (domain.Post, error)
 	UpdatePost(int, domain.Post) (domain.Post, error)
+	DestroyPost(int) error
 }
 
 func NewPostHandler(db infrastructure.DB) *PostHandler {
@@ -33,6 +34,7 @@ func (h *PostHandler) Index(c *gin.Context) {
 	} else {
 		c.JSON(200, posts)
 	}
+	return
 }
 
 func (h *PostHandler) Show(c *gin.Context) {
@@ -43,6 +45,7 @@ func (h *PostHandler) Show(c *gin.Context) {
 	} else {
 		c.JSON(200, post)
 	}
+	return
 }
 
 func (h *PostHandler) Create(c *gin.Context) {
@@ -54,6 +57,7 @@ func (h *PostHandler) Create(c *gin.Context) {
 	} else {
 		c.JSON(201, post)
 	}
+	return
 }
 
 func (h *PostHandler) Update(c *gin.Context) {
@@ -64,6 +68,17 @@ func (h *PostHandler) Update(c *gin.Context) {
 	if err != nil {
 		c.JSON(404, gin.H{"message": "Page not found"})
 	} else {
-		c.JSON(201, post)
+		c.JSON(200, post)
 	}
+	return
+}
+
+func (h *PostHandler) Destroy(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Param("id"))
+	if err := h.Usecase.DestroyPost(id); err != nil {
+		c.JSON(404, gin.H{"message": "Page not found"})
+		return
+	}
+	c.JSON(200, gin.H{"message": "Successful"})
+	return
 }
