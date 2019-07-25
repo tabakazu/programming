@@ -2,6 +2,7 @@ package infrastructure
 
 import (
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/tabakazu/interface-pattern/domain"
 )
 

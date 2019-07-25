@@ -9,6 +9,12 @@ type PostRepository struct {
 	DB *infrastructure.DB
 }
 
+func NewPostRepository() *PostRepository {
+	return &PostRepository{
+		DB: infrastructure.NewDb(),
+	}
+}
+
 func (r *PostRepository) FindById(id int) (domain.Post, error) {
 	post := domain.Post{}
 	if err := r.DB.Conn.First(&post, id).Error; err != nil {
