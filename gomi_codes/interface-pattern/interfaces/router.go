@@ -10,6 +10,7 @@ func NewRouter() *gin.Engine {
 	r := gin.New()
 
 	postHandler := handler.NewPostHandler(*infrastructure.NewDb())
+	r.GET("/posts", func(c *gin.Context) { postHandler.Index(c) })
 	r.GET("/posts/:id", func(c *gin.Context) { postHandler.Show(c) })
 
 	r.GET("/ping", func(c *gin.Context) {

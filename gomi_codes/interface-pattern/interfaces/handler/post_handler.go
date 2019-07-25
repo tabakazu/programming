@@ -14,12 +14,22 @@ type PostHandler struct {
 }
 
 type PostUsecase interface {
+	GetPosts() ([]domain.Post, error)
 	GetPost(int) (domain.Post, error)
 }
 
 func NewPostHandler(db infrastructure.DB) *PostHandler {
 	return &PostHandler{
 		Usecase: usecase.NewPostUsecase(),
+	}
+}
+
+func (h *PostHandler) Index(c *gin.Context) {
+	posts, err := h.Usecase.GetPosts()
+	if err != nil {
+		c.JSON(404, gin.H{"message": "Page not found"})
+	} else {
+		c.JSON(200, posts)
 	}
 }
 

@@ -15,6 +15,14 @@ func NewPostRepository() *PostRepository {
 	}
 }
 
+func (r *PostRepository) All() ([]domain.Post, error) {
+	posts := []domain.Post{}
+	if err := r.DB.Conn.Find(&posts).Error; err != nil {
+		return posts, err
+	}
+	return posts, nil
+}
+
 func (r *PostRepository) FindById(id int) (domain.Post, error) {
 	post := domain.Post{}
 	if err := r.DB.Conn.First(&post, id).Error; err != nil {
