@@ -1,0 +1,6 @@
+namespace         = "taba"
+region            = "ap-northeast-1"
+availability_zone = {
+  a = "ap-northeast-1a"
+  c = "ap-northeast-1c"
+}

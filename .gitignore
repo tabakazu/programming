@@ -6,6 +6,13 @@
 
 vendor/
 pkg/
+.env
 .envrc
 
 .bundle/
+
+# terraform
+.terraform
+*.tfvars
+*.tfstate
+*.tfstate.*
