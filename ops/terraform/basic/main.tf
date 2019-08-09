@@ -23,3 +23,14 @@ module "web" {
   subnet_public_a_id = "${module.network.subnet_public_a_id}"
   subnet_public_c_id = "${module.network.subnet_public_c_id}"
 }
+
+# DB module
+module "db" {
+  source = "./modules/db"
+  
+  namespace             = "${var.namespace}"
+  vpc_id                = "${module.network.vpc_id}"
+  subnet_private_a_id   = "${module.network.subnet_private_a_id}"
+  subnet_private_c_id   = "${module.network.subnet_private_c_id}"
+  security_group_ec2_id = "${module.web.security_group_ec2_id}"
+}
