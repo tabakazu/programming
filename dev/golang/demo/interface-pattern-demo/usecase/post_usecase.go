@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/tabakazu/interface-pattern/domain"
-	"github.com/tabakazu/interface-pattern/infrastructure/repository"
+	"github.com/tabakazu/interface-pattern-demo/domain"
+	"github.com/tabakazu/interface-pattern-demo/infrastructure/repository"
 )
 
 type PostUsecase struct {

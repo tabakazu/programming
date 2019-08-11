@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/tabakazu/interface-pattern/interfaces"
+	"github.com/tabakazu/interface-pattern-demo/interfaces"
 )
 
 func main() {

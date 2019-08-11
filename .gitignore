@@ -16,3 +16,5 @@ pkg/
 *.tfvars
 *.tfstate
 *.tfstate.*
+
+*.pb.go

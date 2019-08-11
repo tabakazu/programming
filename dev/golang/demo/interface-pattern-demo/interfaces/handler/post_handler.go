@@ -4,9 +4,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/tabakazu/interface-pattern/domain"
-	"github.com/tabakazu/interface-pattern/infrastructure"
-	"github.com/tabakazu/interface-pattern/usecase"
+	"github.com/tabakazu/interface-pattern-demo/domain"
+	"github.com/tabakazu/interface-pattern-demo/infrastructure"
+	"github.com/tabakazu/interface-pattern-demo/usecase"
 )
 
 type PostHandler struct {
