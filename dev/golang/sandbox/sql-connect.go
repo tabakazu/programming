@@ -14,6 +14,13 @@ func main() {
 		panic(err)
 	}
 
+	_, err = db.Exec(
+		`CREATE TABLE posts (id INTEGER, title VARCHAR(255))`,
+	)
+	if err != nil {
+		fmt.Println("Faild!")
+	}
+
 	fmt.Println("Successful!")
 
 	defer db.Close()
