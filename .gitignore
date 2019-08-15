@@ -18,3 +18,8 @@ pkg/
 *.tfstate.*
 
 *.pb.go
+
+revel-app-demo/test-results/
+revel-app-demo/tmp/
+revel-app-demo/routes/
+
