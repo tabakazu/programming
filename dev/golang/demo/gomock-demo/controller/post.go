@@ -1,12 +1,24 @@
 package controller
 
-import "github.com/tabakazu/gomock-demo/usecase"
+import (
+	"fmt"
 
-type Post struct {
-	Usecase usecase.Post
+	"github.com/tabakazu/gomock-demo/domain"
+)
+
+type PostUsecase interface {
+	GetPostByID(id int) (*domain.Post, error)
 }
 
-func (c Post) Show() {
-	c.Usecase.FindByID(1)
+type PostController struct {
+	Usecase PostUsecase
+}
+
+func (c PostController) Show() {
+	post, err := c.Usecase.GetPostByID(1)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(post)
 	return
 }

@@ -5,6 +5,8 @@ $ mkdir -p mocks
 ```
 
 ```
-$ mockgen -destination=mocks/mock_post.go -package=mocks github.com/tabakazu/gomock-demo/usecase Post
+$ mockgen -destination=mocks/mock_post_usecase.go -package=mocks github.com/tabakazu/gomock-demo/controller PostUsecase
+$ mockgen -destination=mocks/mock_post_repository.go -package=mocks github.com/tabakazu/gomock-demo/usecase PostRepository
+
 $ go test -v github.com/tabakazu/gomock-demo/controller
 ```
