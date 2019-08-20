@@ -6,28 +6,35 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/aws/aws-sdk-go/service/iam/iamiface"
+	"github.com/jessevdk/go-flags"
 )
 
+type options struct {
+	Username            string `short:"u" long:"username" description:"username"`
+	Path                string `short:"p" long:"path" description:"path"`
+	PermissionsBoundary string `short:"b" long:"permissionsboundary" description:"permissions boundary"`
+	TagName             string `short:"t" long:"tag" description:"tag"`
+}
+
 func main() {
-	sess := iam.New(session.New())
+	var opts options
+	if _, err := flags.Parse(&opts); err != nil {
+		fmt.Println(err)
+		return
+	}
 
-	iamPath := "/"
-	iamPermissionsBoundary := "testtesttesttesttest"
-
-	iamTagKey := "Name"
-	iamTagValue := "test-go-sdk"
-	iamUserName := "test-go-sdk"
+	tagKey := "Name"
 	iamTag := iam.Tag{
-		Key:   &iamTagKey,
-		Value: &iamTagValue,
+		Key:   &tagKey,
+		Value: &opts.TagName,
 	}
 	iamTags := []*iam.Tag{&iamTag}
 
 	user := &User{
-		Client:              sess,
-		Path:                iamPath,
-		PermissionsBoundary: iamPermissionsBoundary,
-		UserName:            iamUserName,
+		Client:              iam.New(session.New()),
+		Path:                opts.Path,
+		PermissionsBoundary: opts.PermissionsBoundary,
+		UserName:            opts.Username,
 		Tags:                iamTags,
 	}
 
