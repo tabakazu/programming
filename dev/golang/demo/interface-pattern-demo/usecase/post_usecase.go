@@ -3,18 +3,11 @@ package usecase
 import (
 	"github.com/tabakazu/interface-pattern-demo/domain"
 	"github.com/tabakazu/interface-pattern-demo/infrastructure/repository"
+	"github.com/tabakazu/interface-pattern-demo/infrastructure/repository/repositoryiface"
 )
 
 type PostUsecase struct {
-	PostRepository
-}
-
-type PostRepository interface {
-	All() ([]domain.Post, error)
-	FindById(int) (domain.Post, error)
-	Store(domain.Post) (domain.Post, error)
-	Update(int, domain.Post) (domain.Post, error)
-	Destroy(int) error
+	PostRepository repositoryiface.PostRepository
 }
 
 func NewPostUsecase() PostUsecase {
