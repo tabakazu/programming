@@ -3,35 +3,55 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
-type Formatter interface {
-	outputReport(title string, text string) string
+type IFormatter interface {
+	outputReport(title string, text string) (string, error)
 }
 
-type HTMLFormatter struct{}
+type Formatter struct{}
 
-func (f HTMLFormatter) outputReport(title string, text string) string {
+func (f Formatter) outputReport(title string, text string) (string, error) {
+	err := errors.New("Abstract method called")
+	return "", err
+}
+
+type HTMLFormatter struct {
+	Formatter
+}
+
+func (f HTMLFormatter) outputReport(title string, text string) (string, error) {
 	s := "html"
-	return s
+	return s, nil
 }
 
-type PlainTextFormatter struct{}
+type PlainTextFormatter struct {
+	Formatter
+}
 
-func (f PlainTextFormatter) outputReport(title string, text string) string {
+func (f PlainTextFormatter) outputReport(title string, text string) (string, error) {
 	s := "plain text"
-	return s
+	return s, nil
+}
+
+type OtherFormatter struct {
+	Formatter
 }
 
 type Report struct {
 	Title     string
 	Text      string
-	Formatter Formatter
+	Formatter IFormatter
 }
 
 func (r Report) outputReport() string {
-	return r.Formatter.outputReport(r.Title, r.Text)
+	s, err := r.Formatter.outputReport(r.Title, r.Text)
+	if err != nil {
+		return err.Error()
+	}
+	return s
 }
 
 func main() {
@@ -44,5 +64,9 @@ func main() {
 
 	r.Formatter = PlainTextFormatter{}
 	fmt.Println(r.outputReport())
+
+	r.Formatter = OtherFormatter{}
+	fmt.Println(r.outputReport())
+
 	return
 }
