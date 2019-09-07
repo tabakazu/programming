@@ -10,32 +10,28 @@ func (s *Subject) AddObserver(o observer) {
 	s.observers = append(s.observers, o)
 }
 
-func (s *Subject) notifyObservers() string {
+func (s *Subject) notifyObservers() {
 	for _, o := range s.observers {
 		o.update()
 	}
-	str := "success"
-	return str
 }
 
 type observer interface {
-	update() string
+	update()
 }
 
 type FirstObserver struct{}
 
-func (o FirstObserver) update() string {
+func (o FirstObserver) update() {
 	s := "FirstObserver Update!"
 	fmt.Println(s)
-	return s
 }
 
 type SecondObserver struct{}
 
-func (o SecondObserver) update() string {
+func (o SecondObserver) update() {
 	s := "SecondObserver Update!"
 	fmt.Println(s)
-	return s
 }
 
 type Employee struct {

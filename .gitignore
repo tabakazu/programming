@@ -24,3 +24,5 @@ revel-app-demo/tmp/
 revel-app-demo/routes/
 
 **/gomock-demo/mocks/mock_*
+
+go.mod

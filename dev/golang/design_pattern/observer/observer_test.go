@@ -12,7 +12,8 @@ func TestObserver(t *testing.T) {
 
 	e.AddObserver(o1)
 	e.AddObserver(o2)
-	if e.notifyObservers() != "success" {
+
+	if len(e.Subject.observers) != 2 {
 		t.Errorf("Fail")
 	}
 }
