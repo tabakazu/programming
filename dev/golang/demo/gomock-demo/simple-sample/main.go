@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/tabakazu/gomock-demo/simple-sample/implement"
-	"github.com/tabakazu/gomock-demo/simple-sample/mock"
+	"github.com/tabakazu/gomock-demo-simple-sample/implement"
+	"github.com/tabakazu/gomock-demo-simple-sample/mock"
 )
 
 // モック(Mock)と実装(Implement)に共通するインターフェイス
