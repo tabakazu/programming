@@ -2,10 +2,11 @@ package model
 
 // 会員顧客
 type Customer struct {
-	Name  string
-	Email string
+	ID    int    // ID
+	Name  string // 名称
+	Email string // メールアドレス
 }
 
-func NewCustomer(name, email string) *Customer {
-	return &Customer{name, email}
+func NewCustomer(id int, name, email string) *Customer {
+	return &Customer{id, name, email}
 }
