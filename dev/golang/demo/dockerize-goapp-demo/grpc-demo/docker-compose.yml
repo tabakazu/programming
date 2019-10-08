@@ -1,0 +1,20 @@
+version: '3.2'
+services:
+  client:
+    build:
+      context: .
+      dockerfile: ./client/Dockerfile
+    command: 'go run main.go'
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./client:/go/src/app
+      - /go/src/app/pb
+  server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    command: 'go run main.go'
+    volumes:
+      - ./server:/go/src/app
+      - /go/src/app/pb
