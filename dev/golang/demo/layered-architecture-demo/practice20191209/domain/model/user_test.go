@@ -25,3 +25,14 @@ func TestNewUser(t *testing.T) {
 		}
 	}
 }
+
+func TestUserAuthenticate(t *testing.T) {
+	for i := range userTests {
+		test := &userTests[i]
+		u, _ := model.UserAuthenticate(test.Email, test.Password)
+
+		if u.PasswordDigest == "" {
+			t.Errorf("u.PasswordDigest is present")
+		}
+	}
+}

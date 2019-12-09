@@ -1,7 +1,10 @@
 package model
 
 import (
+	"fmt"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
@@ -21,13 +24,32 @@ func NewUser(email, password string) *User {
 	}
 }
 
-// func (u *User) encryptPassword() error {
-// 	if u.Password != "" {
-// 		hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
-// 		if err != nil {
-// 			return err
-// 		}
-// 		u.PasswordDigest = string(hash)
-// 	}
-// 	return nil
-// }
+func (u *User) encryptPassword() error {
+	if u.Password == "" {
+		return fmt.Errorf("u.Password is blank")
+	}
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
+	if err != nil {
+		return err
+	}
+	u.PasswordDigest = string(hash)
+	return nil
+}
+
+func UserAuthenticate(email, password string) (*User, error) {
+	// ユーザの取得を模倣
+	u := &User{
+		Email:    email,
+		Password: password,
+	}
+	if err := u.encryptPassword(); err != nil {
+		return nil, err
+	}
+
+	hash := u.PasswordDigest
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+}
