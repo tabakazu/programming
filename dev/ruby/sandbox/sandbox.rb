@@ -68,3 +68,27 @@ end
 block_call_method 'Using block call method' do | w | 
   puts w 
 end
+
+
+# クラス & ダックタイピング
+class Item < Struct.new(:id); end
+class ItemRepository
+  def all; 'SELECT * FROM items'; end
+  def find_by_id(id); "SELECT * FROM items WHERE id = #{id}"; end
+end
+class ItemRepository2
+  def all; "Item.all"; end
+end
+class ItemApplicationService < Struct.new(:repository)
+  def get_items; repository.all; end
+  def get_item_by_id(id); repository.find_by_id(id); end
+end
+
+item_repo = ItemRepository.new
+item_service = ItemApplicationService.new(item_repo)
+puts item_service.get_items #=> SELECT * FROM it
+puts item_service.get_item_by_id(1) #=> SELECT * FROM items WHERE id = 1
+
+item_repo2 = ItemRepository2.new
+item_service = ItemApplicationService.new(item_repo2)
+puts item_service.get_items #=> Item.all
