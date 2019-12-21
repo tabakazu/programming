@@ -24,3 +24,6 @@ revel-app-demo/tmp/
 revel-app-demo/routes/
 
 **/gomock-demo/mocks/mock_*
+
+**/typescript/sandbox/*.js
+**/typescript/sandbox/tsconfig.json
