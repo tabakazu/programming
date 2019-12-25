@@ -2,19 +2,15 @@ package model
 
 import (
 	"fmt"
-	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type User struct {
-	ID             uint   `gorm:"primary_key"`
+	Model
 	Email          string `gorm:"unique_index"`
 	Password       string `gorm:"-"`
 	PasswordDigest string
-	CreatedAt      time.Time
-	UpdatedAt      time.Time
-	DeletedAt      *time.Time
 }
 
 func NewUser(email, password string) *User {
