@@ -1,0 +1,7 @@
+# 2020/01/05
+
+Initial
+```sql
+CREATE DATABASE IF NOT EXISTS godev20200105;
+
+```
