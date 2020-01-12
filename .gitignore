@@ -27,3 +27,7 @@ revel-app-demo/routes/
 
 **/typescript/sandbox/*.js
 **/typescript/sandbox/tsconfig.json
+
+**/rust/*
+!*.rs
+!*.md
