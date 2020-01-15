@@ -25,9 +25,9 @@ revel-app-demo/routes/
 
 **/gomock-demo/mocks/mock_*
 
-**/typescript/sandbox/*.js
-**/typescript/sandbox/tsconfig.json
+**/typescript/**/*.js
+**/typescript/**/*tsconfig.json
 
 **/rust/*
-!*.rs
-!*.md
+!**/rust/**/*.rs
+!**/rust/**/*.md
