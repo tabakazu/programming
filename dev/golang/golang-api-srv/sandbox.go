@@ -18,6 +18,8 @@ func main() {
 	r.GET("/posts/:id", getPostHandler)
 	// curl -X POST http://localhost:3000/posts -H 'content-type: application/json' -d '{ "title": "test title", "body": "test body" }'
 	r.POST("/posts", createPostHandler)
+	// curl -X PUT http://localhost:3000/posts/1 -H 'content-type: application/json' -d '{ "title": "new test title", "body": "new test body" }'
+	r.PUT("/posts/:id", updatePostHandler)
 	// curl -X DELETE http://localhost:3000/posts/1 -H 'content-type: application/json'
 	r.DELETE("/posts/:id", destroyPostHandler)
 
@@ -81,6 +83,32 @@ func createPostHandler(c *gin.Context) {
 	}
 
 	if err := db.Create(&p).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, p)
+}
+
+// Update
+func updatePostHandler(c *gin.Context) {
+	var p Post
+	var newp Post
+
+	db, _ := gorm.Open("mysql", "root:@/golang_api_srv_dev?charset=utf8&parseTime=True&loc=Local")
+	defer db.Close()
+
+	if err := c.ShouldBindJSON(&newp); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := db.First(&p, c.Params.ByName("id")).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	if err := db.Model(&p).Updates(newp).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
