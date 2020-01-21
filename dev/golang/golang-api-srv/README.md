@@ -25,3 +25,8 @@ Run sandbox app
 ```
 $ go run sandobox.go
 ```
+
+Run main app
+```
+$ go run main.go
+```
