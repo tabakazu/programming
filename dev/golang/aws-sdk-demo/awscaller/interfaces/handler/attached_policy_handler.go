@@ -1,20 +1,27 @@
-package awscaller
+package handler
 
 import (
 	"fmt"
 	"regexp"
 
+	"github.com/tabakazu/awscaller/infrastructure"
 	"github.com/urfave/cli"
 )
 
-func actionAttachedPolicies() cli.Command {
+type AttachedPolicyHandler struct{}
+
+func NewAttachedPolicyHandler() *AttachedPolicyHandler {
+	return &AttachedPolicyHandler{}
+}
+
+func (h *AttachedPolicyHandler) DisplayList() cli.Command {
 	return cli.Command{
 		Name:  "policies",
 		Usage: "Shows a aws api caller attached policies",
 		Action: func(c *cli.Context) error {
-			callerID := getCallerIdentity()
+			callerID := infrastructure.GetCallerIdentity()
 			userName := regexp.MustCompile(`^(\S.*)\/`).ReplaceAllString(*callerID.Arn, "")
-			listPolicies := listAttachedUserPolicies(userName)
+			listPolicies := infrastructure.GetListAttachedUserPolicies(userName)
 			fmt.Println("- AttachedPolicies :")
 			for _, policy := range listPolicies.AttachedPolicies {
 				fmt.Printf("\t- %v\n", *policy.PolicyName)
