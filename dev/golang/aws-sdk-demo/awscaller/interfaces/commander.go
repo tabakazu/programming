@@ -6,14 +6,12 @@ import (
 )
 
 func NewCommands() []cli.Command {
-	account := handler.NewAccountHandler()
-	attachedPolicy := handler.NewAttachedPolicyHandler()
-	user := handler.NewUserHandler()
+	h := handler.NewCallerHandler()
 	commands := []cli.Command{
-		account.Display(),
-		attachedPolicy.DisplayList(),
-		user.DisplayId(),
-		user.DisplayName(),
+		h.DisplayAccountId(),
+		h.DisplayUserId(),
+		h.DisplayUserName(),
+		h.DisplayAttachedUserPolicies(),
 	}
 	return commands
 }
