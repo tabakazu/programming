@@ -3,7 +3,7 @@ package handler
 import (
 	"fmt"
 
-	"github.com/tabakazu/awscaller/infrastructure/awsapi"
+	"github.com/tabakazu/awscaller/usecase"
 	"github.com/urfave/cli"
 )
 
@@ -14,57 +14,57 @@ func NewCallerHandler() *CallerHandler {
 }
 
 func (h *CallerHandler) DisplayAccountId() cli.Command {
-	r := awsapi.NewCallerResource()
-	clr, _ := r.GetIdentity()
+	u := usecase.NewCallerUsecase()
+	str, _ := u.GetAccountId()
 
 	return cli.Command{
-		Name:  "accountId",
+		Name:  "account_id",
 		Usage: "Shows a aws api caller account number",
 		Action: func(c *cli.Context) error {
-			fmt.Print(clr.AccountId)
+			fmt.Print(str)
 			return nil
 		},
 	}
 }
 
 func (h *CallerHandler) DisplayUserId() cli.Command {
-	r := awsapi.NewCallerResource()
-	clr, _ := r.GetIdentity()
+	u := usecase.NewCallerUsecase()
+	str, _ := u.GetUserId()
 
 	return cli.Command{
-		Name:  "userId",
+		Name:  "user_id",
 		Usage: "Shows a aws api caller user id",
 		Action: func(c *cli.Context) error {
-			fmt.Print(clr.UserId)
+			fmt.Print(str)
 			return nil
 		},
 	}
 }
 
 func (h *CallerHandler) DisplayUserName() cli.Command {
-	r := awsapi.NewCallerResource()
-	clr, _ := r.GetIdentity()
+	u := usecase.NewCallerUsecase()
+	str, _ := u.GetUserName()
 
 	return cli.Command{
 		Name:  "username",
 		Usage: "Shows a aws api caller user name",
 		Action: func(c *cli.Context) error {
-			fmt.Print(clr.UserName)
+			fmt.Print(str)
 			return nil
 		},
 	}
 }
 
 func (h *CallerHandler) DisplayAttachedUserPolicies() cli.Command {
-	r := awsapi.NewCallerResource()
-	i, _ := r.GetIdentity()
-	clr, _ := r.GetAttachedIamPoliciesByUserName(i.UserName)
+	u := usecase.NewCallerUsecase()
+	userName, _ := u.GetUserName()
+	strArray, _ := u.GetAttachedUserPolicies(userName)
 
 	return cli.Command{
 		Name:  "policies",
 		Usage: "Shows a aws api caller attached policies",
 		Action: func(c *cli.Context) error {
-			for _, v := range clr.AttachedUserPolicies {
+			for _, v := range strArray {
 				fmt.Printf("- %v\n", v)
 			}
 			return nil
