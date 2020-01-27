@@ -9,4 +9,5 @@ type Caller struct {
 
 type CallerResource interface {
 	GetIdentity() (*Caller, error)
+	GetAttachedIamPoliciesByUserName(userName string) (*Caller, error)
 }

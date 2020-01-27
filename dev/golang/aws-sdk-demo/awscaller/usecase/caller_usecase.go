@@ -1,11 +1,18 @@
 package usecase
 
-import "github.com/tabakazu/awscaller/infrastructure/awsapi"
+import (
+	"github.com/tabakazu/awscaller/infrastructure/awsapi"
+	"github.com/tabakazu/awscaller/model"
+)
 
-type CallerUsecase struct{}
+type CallerUsecase struct {
+	Resource model.CallerResource
+}
 
 func NewCallerUsecase() *CallerUsecase {
-	return &CallerUsecase{}
+	return &CallerUsecase{
+		Resource: awsapi.NewCallerResource(),
+	}
 }
 
 func (u *CallerUsecase) GetAccountId() (string, error) {
