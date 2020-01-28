@@ -6,8 +6,3 @@ type Caller struct {
 	UserName             string
 	AttachedUserPolicies []string
 }
-
-type CallerResource interface {
-	GetIdentity() (*Caller, error)
-	GetAttachedIamPoliciesByUserName(userName string) (*Caller, error)
-}

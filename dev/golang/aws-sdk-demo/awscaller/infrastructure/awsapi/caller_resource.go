@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/iam"
 	"github.com/aws/aws-sdk-go/service/sts"
-	"github.com/tabakazu/awscaller/model"
+	"github.com/tabakazu/awscaller/domain/model"
 )
 
 type CallerResource struct{}

@@ -1,12 +1,12 @@
 package usecase
 
 import (
+	"github.com/tabakazu/awscaller/domain/resource"
 	"github.com/tabakazu/awscaller/infrastructure/awsapi"
-	"github.com/tabakazu/awscaller/model"
 )
 
 type CallerUsecase struct {
-	Resource model.CallerResource
+	Resource resource.CallerResource
 }
 
 func NewCallerUsecase() *CallerUsecase {
