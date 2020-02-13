@@ -31,3 +31,7 @@ revel-app-demo/routes/
 **/rust/*
 !**/rust/**/*.rs
 !**/rust/**/*.md
+
+# cpp
+*.out
+*.exe
