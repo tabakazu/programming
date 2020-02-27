@@ -1,7 +1,7 @@
 CREATE TABLE users (
-  id int UNIQUE NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   email varchar(255) UNIQUE NOT NULL,
-  encrypted_password varchar(255) NOT NULL,
+  password_digest varchar(255) NOT NULL,
   api_token varchar(255) UNIQUE NOT NULL,
   created_at datetime,
   updated_at datetime,

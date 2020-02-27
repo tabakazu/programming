@@ -1,7 +1,8 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/tabakazu/simple-auth-server-demo/usecase"
 )
@@ -17,9 +18,19 @@ func RegisterHandler(c *gin.Context) {
 		Email    string `json:"email" binding:"required"`
 		Password string `json:"password" binding:"required"`
 	}
-	c.Bind(&json)
+
+	if err := c.ShouldBindJSON(&json); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
 
 	userUsecase := usecase.NewUserUsecase()
-	user := userUsecase.Register(json.Email, json.Password)
-	fmt.Println(user)
+	user, err := userUsecase.Register(json.Email, json.Password)
+	if err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{"message": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+	return
 }
