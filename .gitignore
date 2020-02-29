@@ -28,10 +28,15 @@ revel-app-demo/routes/
 **/typescript/**/*.js
 **/typescript/**/*tsconfig.json
 
-**/rust/*
-!**/rust/**/*.rs
-!**/rust/**/*.md
-
 # cpp
 *.out
 *.exe
+
+# /rust/*
+/rust/sandbox
+!/rust/*.rs
+/rust/APG4b/*
+!/rust/APG4b/*.rs
+target/
+Cargo.lock
+**/*.rs.bk
