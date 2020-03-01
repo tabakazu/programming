@@ -18,14 +18,21 @@ $ migrate -database 'mysql://root:@/go_simple_auth_server_dev' -path ./db/migrat
 ## API
 ### Register
 ```bash
-$ curl -X POST http://localhost:8080/register \
-       -H 'content-type: application/json' \
+$ curl -X POST http://localhost:8080/auth/registration \
+       -H 'Content-Type: application/json' \
        -d '{ "email": "taba@test.com", "password": "passw0rd" }'
 ```
 
 ### Authenticate
 ```bash
-$ curl -X POST http://localhost:8080/authenticate \
-       -H 'content-type: application/json' \
+$ curl -X POST http://localhost:8080/auth \
+       -H 'Content-Type: application/json' \
        -d '{ "email": "taba@test.com", "password": "passw0rd" }'
+```
+
+### GetCredential
+```bash
+$ curl -X GET http://localhost:8080/user \
+       -H 'Content-Type: application/json' \
+       -H 'HTTP_AUTHORIZATION: <api_token>'
 ```

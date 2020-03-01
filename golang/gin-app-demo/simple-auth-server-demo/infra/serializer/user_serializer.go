@@ -3,7 +3,7 @@ package serializer
 import (
 	"time"
 
-	"github.com/tabakazu/simple-auth-server-demo/domain/entry"
+	"github.com/tabakazu/simple-auth-server-demo/domain"
 )
 
 type UserSerializer struct {
@@ -13,13 +13,13 @@ type UserSerializer struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-func NewUserSerializer(user *entry.User) *UserSerializer {
+func NewUserSerializer(user *domain.User) *UserSerializer {
 	return &UserSerializer{
 		Email:    user.Email,
 		APIToken: user.APIToken,
 	}
 }
 
-func SerializeUser(user *entry.User) *UserSerializer {
+func SerializeUser(user *domain.User) *UserSerializer {
 	return NewUserSerializer(user)
 }
