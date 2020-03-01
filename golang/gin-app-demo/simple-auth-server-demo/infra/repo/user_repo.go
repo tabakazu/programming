@@ -27,3 +27,15 @@ func (r *UserRepo) Create(email, passwdDigest, apiToken string) (*entry.User, er
 	}
 	return user, nil
 }
+
+func (r *UserRepo) FindByEmail(email string) (*entry.User, error) {
+	conn, err := gorm.Open("mysql", "root:@/go_simple_auth_server_dev?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		panic(err.Error())
+	}
+	user := &entry.User{}
+	if err := conn.Where("email = ?", email).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}

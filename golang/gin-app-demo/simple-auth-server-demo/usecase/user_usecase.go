@@ -24,3 +24,17 @@ func (u *UserUsecase) Register(email, passwd string) (*entry.User, error) {
 	}
 	return user, nil
 }
+
+func (u *UserUsecase) Authenticate(email, passwd string) (*entry.User, error) {
+	r := repo.NewUserRepo()
+	user, err := r.FindByEmail(email)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := infra.ComparePassword(passwd, user.PasswordDigest); err != nil {
+		return nil, err
+	}
+
+	return user, nil
+}

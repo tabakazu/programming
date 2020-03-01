@@ -22,3 +22,10 @@ $ curl -X POST http://localhost:8080/register \
        -H 'content-type: application/json' \
        -d '{ "email": "taba@test.com", "password": "passw0rd" }'
 ```
+
+### Authenticate
+```bash
+$ curl -X POST http://localhost:8080/authenticate \
+       -H 'content-type: application/json' \
+       -d '{ "email": "taba@test.com", "password": "passw0rd" }'
+```
