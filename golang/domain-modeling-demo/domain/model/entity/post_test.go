@@ -1,14 +1,15 @@
-package model_test
+package entity_test
 
 import (
 	"testing"
 
-	"github.com/tabakazu/domain-modeling-demo/domain/model"
+	"github.com/tabakazu/domain-modeling-demo/domain/model/entity"
+	"github.com/tabakazu/domain-modeling-demo/domain/model/valueobject"
 )
 
 func Test_NewPost(t *testing.T) {
-	name := model.PostName{Value: "test post"}
-	post := model.NewPost(name)
+	name := valueobject.PostName{Value: "test post"}
+	post := entity.NewPost(name)
 
 	if post == nil {
 		t.Errorf("post = %v want %v", post, nil)

@@ -1,8 +1,13 @@
 package repository
 
-import "github.com/tabakazu/domain-modeling-demo/domain/model"
+import (
+	"github.com/tabakazu/domain-modeling-demo/domain/model/collection"
+	"github.com/tabakazu/domain-modeling-demo/domain/model/entity"
+	"github.com/tabakazu/domain-modeling-demo/domain/model/valueobject"
+)
 
 type PostRepository interface {
-	FindAll() (model.PostCollection, error)
-	FindByName(name model.PostName) (model.Post, error)
+	Save(post entity.Post) (entity.Post, error)
+	FindAll() (collection.PostCollection, error)
+	FindByName(name valueobject.PostName) (entity.Post, error)
 }
