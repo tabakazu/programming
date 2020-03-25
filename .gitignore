@@ -40,3 +40,6 @@ revel-app-demo/routes/
 target/
 Cargo.lock
 **/*.rs.bk
+
+# ruby
+Gemfile.lock
