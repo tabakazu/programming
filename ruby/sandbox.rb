@@ -69,6 +69,12 @@ block_call_method 'Using block call method' do | w |
   puts w 
 end
 
+## Symbol#to_proc.call(x)
+p 1.to_s # => "1"
+p :to_s.to_proc.call(1) # => "1"
+p 'abc'.to_sym  # => :abc
+p :to_sym.to_proc.call('abc') # => :abc
+
 
 # クラス & ダックタイピング
 class Item < Struct.new(:id); end
