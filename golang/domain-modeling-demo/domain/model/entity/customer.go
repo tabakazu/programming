@@ -1,8 +1,11 @@
 package entity
 
-import "github.com/tabakazu/domain-modeling-demo/domain/model/valueobject"
+import (
+	"github.com/tabakazu/domain-modeling-demo/domain/model/valueobject"
+)
 
 type Customer struct {
+	Model
 	Name    valueobject.CustomerName `gorm:"embedded"`
 	Address valueobject.Address      `gorm:"embedded"`
 }

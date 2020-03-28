@@ -9,19 +9,7 @@ import (
 )
 
 func main() {
-	postRepo := datastore.NewPostRepository()
-
-	postName := valueobject.PostName{Value: "New Post"}
-	newPost := entity.Post{Name: postName}
-	savedPost, _ := postRepo.Save(newPost)
-	fmt.Println(savedPost)
-
-	posts, _ := postRepo.FindAll()
-	fmt.Println(posts)
-
-	post1, _ := postRepo.FindByName(postName)
-	fmt.Println(post1)
-
+	// 顧客
 	customerRepo := datastore.NewCustomerRepository()
 
 	customerName := valueobject.CustomerName{"New Customer"}
@@ -32,4 +20,19 @@ func main() {
 
 	customers, _ := customerRepo.FindAll()
 	fmt.Println(customers)
+
+	// 投稿
+	postRepo := datastore.NewPostRepository()
+
+	postName := valueobject.PostName{Value: "New Post"}
+	cusID := valueobject.CustomerID{Value: savedCustomer.ID}
+	newPost := entity.Post{CustomerID: cusID, Name: postName}
+	savedPost, _ := postRepo.Save(newPost)
+	fmt.Println(savedPost)
+
+	posts, _ := postRepo.FindAll()
+	fmt.Println(posts)
+
+	post1, _ := postRepo.FindByName(postName)
+	fmt.Println(post1)
 }
