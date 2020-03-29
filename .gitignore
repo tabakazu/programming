@@ -43,3 +43,6 @@ Cargo.lock
 
 # ruby
 Gemfile.lock
+
+# kotlin
+*.jar
