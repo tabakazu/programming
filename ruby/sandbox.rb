@@ -1,100 +1,104 @@
-# Integer クラス
+######
+###### 変数の定義
+######
+a = 1
+b = 'a'
+c = :xxx
+puts "#{a}, #{b} ,#{c}"
+
+
+######
+###### 基本的な型
+######
 i = 1
-puts i.class, i
-
-# Float クラス
-f = 0.1
-puts f.class, f
-
-# String クラス
 str = 'Hello'
-puts str.class, str
-
-# Array クラス
-arr = [1, 2, 3]
-puts arr.class, arr
-
-# Hash クラス
-hash = { a: 1, b: 2 }
-puts hash.class, hash
-
-
-# 構造体クラス
-## クラス名あり ※ 第一引数がクラス名、keyword_init が true でキーワード引数有効
-person_struct = Struct.new('Person', :name, :age, keyword_init: true)
-person1 = person_struct.new(name: 'taro', age: 20)
-puts person1.class, person1.name, person1.age
-
-## クラス名なし ※ 定数に入れることで利用可能
-Person = Struct.new(:name, :age)
-person2 = Person.new('hanako', 40)
-puts person2.class, person2.name, person2.age
+sym = :Hello
+arr = [1, 'a', :a]
+hash = { a: 1, b: 2, c: 3 }
+puts "#{i} is #{i.class}"
+puts "#{str} is #{str.class}"
+puts "#{sym} is #{sym.class}"
+puts "#{arr} is #{arr.class}"
+puts "#{hash} is #{hash.class}"
 
 
-# 要素を動的に追加・削除できる構造体クラス
-require 'ostruct'
-o_struct = OpenStruct.new({ name: 'pochi' })
-o_struct.age = 10 # 初期値にない要素を追加可能
-puts o_struct.class, o_struct.name, o_struct.age
-
-
-# ブロック
-## Proc クラス
-proc = Proc.new { | w | puts w }
-puts proc.class, proc.call('This is Proc class')
-
-def proc_call_method word, proc
-  proc.call word
-  proc.call # ブロックの引数が足りなくても大丈夫
+######
+###### if 式
+######
+flag = [true, false].sample
+if flag
+  puts 'flag is true'
+else
+  puts 'flag is false'
 end
-proc_call_method 'Using proc call method', Proc.new { | w | puts w }
+# 三項演算子
+puts flag ? 'flag is true' : 'flag is false'
 
-## lambda メソッド例
-def lambda_call_method word, _lambda
-  _lambda.call word # ブロックの引数が足りないとエラー
+
+######
+###### クラス
+######
+class Person
+  # アクセサメソッド
+  attr_accessor :first_name, :last_name
+
+  def initialize(first_name, last_name)
+    @first_name = first_name
+    @last_name = last_name
+  end
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end
-lambda_call_method 'Using lambda method', lambda { | w | puts w }
+# クラスのインスタンス生成
+person = Person.new('Joe', 'Smith')
+puts "#{person} is #{person.class}"
+puts "#{person}#full_name} is #{person.full_name}"
 
-## yield 例
-def yield_method word
-  yield word
+
+######
+###### ダックタイピング
+######
+class PersonRepository
+  def all
+    # DB 操作などで取得したとして...
+    [Person.new('Taro', 'Yamada')]
+  end
 end
-yield_method('Using yield method') { | w | puts w }
-
-## block 引数例
-def block_call_method word, &block
-  block.call word
+class PersonResource
+  def all
+    # API 操作などで取得したとして...
+    [Person.new('Hanako', 'Tanaka')]
+  end
 end
-block_call_method 'Using block call method' do | w | 
-  puts w 
+# 呼び出し元クラス
+class PersonUsecase
+  def initialize(repo)
+    @repo = repo
+  end
+  def get_all
+    @repo.all
+  end
 end
+# 喚び出し手から取り換え可能な状況 (多様性)
+repo = PersonRepository.new
+resouce = PersonResource.new
+puts PersonUsecase.new(repo).get_all.map(&:full_name)
+puts PersonUsecase.new(resouce).get_all.map(&:full_name)
 
-## Symbol#to_proc.call(x)
-p 1.to_s # => "1"
-p :to_s.to_proc.call(1) # => "1"
-p 'abc'.to_sym  # => :abc
-p :to_sym.to_proc.call('abc') # => :abc
 
-
-# クラス & ダックタイピング
-class Item < Struct.new(:id); end
-class ItemRepository
-  def all; 'SELECT * FROM items'; end
-  def find_by_id(id); "SELECT * FROM items WHERE id = #{id}"; end
+######
+###### 自身をブロックに渡すクラス
+######
+class Person
+  attr_accessor :first_name, :last_name
+  def initialize
+    yield self if block_given?
+  end
 end
-class ItemRepository2
-  def all; "Item.all"; end
+person = Person.new do |person|
+  person.first_name = 'Jiro'
+  person.last_name = 'Yamada'
 end
-class ItemApplicationService < Struct.new(:repository)
-  def get_items; repository.all; end
-  def get_item_by_id(id); repository.find_by_id(id); end
-end
-
-item_repo = ItemRepository.new
-item_service = ItemApplicationService.new(item_repo)
-puts item_service.get_items #=> SELECT * FROM it
-puts item_service.get_item_by_id(1) #=> SELECT * FROM items WHERE id = 1
-
-item_repo2 = ItemRepository2.new
-item_service = ItemApplicationService.new(item_repo2)
-puts item_service.get_items #=> Item.all
+puts "#{person}#full_name} is #{person.full_name}" #<Person:xxx>#full_name} is Jiro Yamada
