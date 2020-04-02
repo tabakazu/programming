@@ -1,15 +1,22 @@
-//
-// クラス
-//
+//////
+////// 関数
+//////
+fun calculate(x: Int, y: Int) : Int {
+  return x + y
+}
+
+//////
+////// クラス
+//////
 class Person(val firstName: String, val lastName: String) {
   fun fullName(): String {
     return "${this.firstName} ${this.lastName}"
   }
 }
 
-//
-// インターフェース
-//
+//////
+////// インターフェース
+//////
 interface IPersonRepository {
   fun findByFirstName(firstName: String): Person
 }
@@ -28,9 +35,9 @@ class PersonUsecase(val repo: IPersonRepository) {
   }
 }
 
-//
-// ジェネリクス
-//
+//////
+////// ジェネリクス
+//////
 interface IGenericsRepository<T> {
   fun first(): T
 }
@@ -53,8 +60,10 @@ fun main(args: Array<String>) {
   // Hello World
   println("Hello, World!")
 
+
   // コメント
   /* コメント */
+
 
   // ローカル変数の定義
   val a: Int = 1
@@ -63,11 +72,13 @@ fun main(args: Array<String>) {
   c = 1      // 代入
   println("${a}, ${b}, ${c}")
 
+
   // 基本的な型
   val i: Int = 1
   val str: String = "Hello"
   println("${i} is ${i.javaClass.name}")
   println("${str} is ${str.javaClass.name}")
+
 
   // if 式
   val flag: Boolean = true
@@ -76,17 +87,24 @@ fun main(args: Array<String>) {
   else 
     println("flag is false")
 
+
+  // 関数の呼び出し
+  println(calculate(1, 2))
+
+
   // クラスのインスタンス生成
   val person = Person("Joe", "Smith")
   println("${person} is ${person.javaClass.name}")
   println("person.firstName is ${person.firstName}")
   println("person.fullName is ${person.fullName()}")
 
+
   // インターフェースの実装 & ダックタイピング
   val repo = PersonRepository()
   val usecase = PersonUsecase(repo)
   val person1 = usecase.getPersonByFirstName("Alice")
   println(person1.firstName)
+
 
   // ジェネリクス
   val repo2 = PersonGenericsRepository()
