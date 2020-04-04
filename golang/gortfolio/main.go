@@ -2,20 +2,11 @@ package main
 
 import (
 	"fmt"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"github.com/tabakazu/gortfolio/infrastructure"
 )
 
 func main() {
-	r := gin.Default()
-
-	// Ping test
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
-
-	r.Run(":8080")
-
+	infrastructure.Web.Run(":8080")
 	fmt.Println("Go Application starting...")
 }
