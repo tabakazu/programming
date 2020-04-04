@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  goapp:
+    build:
+      context: .
+      dockerfile: ./.dockerdev/goapp/Dockerfile
+    stdin_open: true
+    tty: true
+    environment:
+      - EDITOR=vi
+    ports:
+      - '8090:8080'
+    volumes:
+      - .:/go/src/github.com/tabakazu/gortfolio:cached
+      - go_pkg_mod:/go/pkg/mod
+    depends_on:
+      - mysql
+  mysql:
+    build:
+      context: .
+      dockerfile: ./.dockerdev/mysql/Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  go_pkg_mod:
+  mysql_data:
