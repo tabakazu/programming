@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/tabakazu/gortfolio/infrastructure"
+	"github.com/tabakazu/gortfolio/infrastructure/web"
 )
 
 func main() {
-	infrastructure.Web.Run(":8080")
+	web.Router.Run(":8080")
 	fmt.Println("Go Application starting...")
 }

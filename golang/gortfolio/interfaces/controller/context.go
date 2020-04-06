@@ -1,8 +1,9 @@
 package controller
 
 type Context interface {
-	Param(string) string
 	Bind(interface{}) error
-	Status(int)
 	JSON(int, interface{})
+	Param(string) string
+	ShouldBindJSON(interface{}) error
+	Status(int)
 }

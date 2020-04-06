@@ -1,17 +1,21 @@
-package infrastructure
+package web
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/tabakazu/gortfolio/infrastructure/datastore"
 	"github.com/tabakazu/gortfolio/interfaces/controller"
+	"github.com/tabakazu/gortfolio/usecase/interactor"
 )
 
-var Web *gin.Engine
+var Router *gin.Engine
 
 func init() {
 	router := gin.Default()
-	usersController := controller.NewUsersController()
+	usersRepository := datastore.NewUserRepository()
+	usersUsecase := interactor.NewUsersInteractor(usersRepository)
+	usersController := controller.NewUsersController(usersUsecase)
 
 	api := router.Group("/api")
 	{
@@ -23,5 +27,5 @@ func init() {
 
 	router.GET("/ping", func(c *gin.Context) { c.String(http.StatusOK, "pong") })
 
-	Web = router
+	Router = router
 }
