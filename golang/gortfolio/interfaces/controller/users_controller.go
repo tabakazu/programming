@@ -31,5 +31,5 @@ func (ctrl *UsersController) Create(c Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, nil)
+	c.Status(http.StatusCreated)
 }

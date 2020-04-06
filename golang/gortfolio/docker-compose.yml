@@ -22,8 +22,16 @@ services:
       dockerfile: ./.dockerdev/mysql/Dockerfile
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gortfolio_dev
     volumes:
       - mysql_data:/var/lib/mysql
+  migrate:
+    image: migrate/migrate
+    # command: ["-database", "mysql://root:root@tcp(mysql:3306)/gortfolio_dev", "-path", "./migrations", "up"]
+    volumes:
+      - ./migrations:/migrations
+    depends_on:
+      - mysql
 
 volumes:
   go_pkg_mod:
