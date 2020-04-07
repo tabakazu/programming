@@ -14,7 +14,7 @@ var Router *gin.Engine
 func init() {
 	router := gin.Default()
 	usersRepository := datastore.NewUserRepository()
-	usersUsecase := interactor.NewUsersInteractor(usersRepository)
+	usersUsecase := interactor.NewUserRegisterInteractor(usersRepository)
 	usersController := controller.NewUsersController(usersUsecase)
 
 	api := router.Group("/api")

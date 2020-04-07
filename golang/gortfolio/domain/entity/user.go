@@ -1,5 +1,8 @@
 package entity
 
 type User struct {
-	Email string
+	Model
+	Email          string `gorm:"unique;not null"`
+	Password       string `gorm:"-"`
+	PasswordDigest string `gorm:"not null"`
 }
