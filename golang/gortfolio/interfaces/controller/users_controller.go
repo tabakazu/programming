@@ -9,17 +9,17 @@ import (
 )
 
 type UsersController struct {
-	usecase usecase.UserCreateUseCase
+	usecase usecase.UserRegisterUseCase
 }
 
-func NewUsersController(usecase usecase.UserCreateUseCase) *UsersController {
+func NewUsersController(usecase usecase.UserRegisterUseCase) *UsersController {
 	return &UsersController{
 		usecase: usecase,
 	}
 }
 
 func (ctrl *UsersController) Create(c Context) {
-	req := requests.NewUserCreateRequest()
+	req := requests.NewUserRegisterRequest()
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})

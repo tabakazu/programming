@@ -12,13 +12,13 @@ type UserRegisterInteractor struct {
 	repository repository.UserRepository
 }
 
-func NewUserRegisterInteractor(repo repository.UserRepository) usecase.UserCreateUseCase {
+func NewUserRegisterInteractor(repo repository.UserRepository) usecase.UserRegisterUseCase {
 	return &UserRegisterInteractor{
 		repository: repo,
 	}
 }
 
-func (u UserRegisterInteractor) Call(req requests.UserCreateRequest) error {
+func (u UserRegisterInteractor) Call(req requests.UserRegisterRequest) error {
 	user := &entity.User{
 		Email:    req.Email,
 		Password: req.Password,
