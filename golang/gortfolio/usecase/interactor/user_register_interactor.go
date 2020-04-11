@@ -3,6 +3,7 @@ package interactor
 import (
 	"github.com/tabakazu/gortfolio/domain/entity"
 	"github.com/tabakazu/gortfolio/domain/repository"
+	"github.com/tabakazu/gortfolio/domain/value"
 	"github.com/tabakazu/gortfolio/usecase"
 	"github.com/tabakazu/gortfolio/usecase/requests"
 	"golang.org/x/crypto/bcrypt"
@@ -20,7 +21,7 @@ func NewUserRegisterInteractor(repo repository.UserRepository) usecase.UserRegis
 
 func (u UserRegisterInteractor) Call(req requests.UserRegisterRequest) error {
 	user := &entity.User{
-		Email:    req.Email,
+		Email:    value.Email{req.Email},
 		Password: req.Password,
 	}
 
