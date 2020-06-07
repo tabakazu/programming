@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    image: rust:1.43.1
+    stdin_open: true
+    tty: true
+    # command: cargo run
+    working_dir: /hyper-demo
+    environment:
+      - USER=tabakazu
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/hyper-demo:cached
+      - target:/hyper-demo/target
+
+volumes:
+  target:
