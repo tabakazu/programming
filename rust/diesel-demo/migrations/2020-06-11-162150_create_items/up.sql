@@ -1,0 +1,7 @@
+-- Your SQL goes here
+CREATE TABLE items (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL
+);
