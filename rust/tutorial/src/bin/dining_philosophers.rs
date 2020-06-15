@@ -1,3 +1,5 @@
+// cargo run --bin dining_philosophers
+
 use std::thread;
 use std::time::Duration;
 use std::sync::{Mutex, Arc};

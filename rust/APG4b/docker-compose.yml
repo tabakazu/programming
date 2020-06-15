@@ -5,15 +5,16 @@ services:
     image: rust:1.43.1
     stdin_open: true
     tty: true
-    # command: cargo run
-    working_dir: /dining_philosophers
+    working_dir: /apg4b
     environment:
       - USER=tabakazu
     ports:
       - '3000:3000'
     volumes:
-      - .:/dining_philosophers:cached
-      - target:/dining_philosophers/target
+      - .:/apg4b:cached
+      - target:/apg4b/target
+      - cargo_package:/usr/local/cargo
 
 volumes:
   target:
+  cargo_package:

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#  create base file.
+#   using:
+#     ./gen ex1
+#     ./gen ex2
+#     ./gen abc123
+
+PROJECT_NAME=$1
+
+cat << EOF > src/bin/$PROJECT_NAME.rs
+// $ cargo run --bin $PROJECT_NAME
+
+fn main() {
+  println!("Hello");
+}
+EOF

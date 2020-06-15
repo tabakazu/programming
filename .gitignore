@@ -33,10 +33,6 @@ revel-app-demo/routes/
 *.exe
 
 # /rust/*
-/rust/sandbox
-!/rust/*.rs
-/rust/APG4b/*
-!/rust/APG4b/*.rs
 target/
 Cargo.lock
 **/*.rs.bk

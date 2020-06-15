@@ -1,4 +1,4 @@
-# Practice
+# The practice codes with Rust tutorial
 
 ## Use Docker
 ```bash

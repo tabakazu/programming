@@ -5,14 +5,14 @@ services:
     image: rust:1.43.1
     stdin_open: true
     tty: true
-    working_dir: /practice
+    working_dir: /tutorial
     environment:
       - USER=tabakazu
     ports:
       - '3000:3000'
     volumes:
-      - .:/practice:cached
-      - target:/practice/target
+      - .:/tutorial:cached
+      - target:/tutorial/target
       - cargo_package:/usr/local/cargo
 
 volumes:

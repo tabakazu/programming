@@ -1,3 +1,5 @@
+// cargo run --bin guessing_game
+
 extern crate rand;
 
 use std::io;
