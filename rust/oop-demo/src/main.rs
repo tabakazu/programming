@@ -1,18 +1,7 @@
-struct User {
-    email: String,
-    family_name: String,
-    given_name: String,
-}
-
-impl User {
-    fn full_name(&self) -> String {
-        [self.family_name.clone(), self.given_name.clone()].join("")
-    }
-}
-
+mod user;
 
 fn main() {
-    let user = User {
+    let user = user::User {
         email: "john_snow@example.com".to_string(),
         family_name: "John".to_string(),
         given_name: "Snow".to_string(),
